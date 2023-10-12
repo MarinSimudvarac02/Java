@@ -1,0 +1,122 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lv3;
+
+import java.util.Scanner;
+
+/*
+1. Napisati program koji će imati sljedeće mogućnosti odabira (koristiti switch):
+    (1) Izračunati aritmetičku sredinu sporedne dijagonale.
+    (2) Izračunati sumu neparnih elemenata prvog retka i prvog stupca matrice. 
+        Ukoliko ne postoje neparni elementi ispisati da nije bilo moguće izračunati sumu. 
+    (3) Ispisati sve brojeve na parnim indeksima vektora V (koristiti continue).
+   
+Program na početku treba od korisnika zatražiti unos maksimalnog broja elemenata (n)
+vektora V kao i dimenzije kvadratne matrice (mxm). Koristeći do-while petlju ograničiti
+unos broja elemenata (n) na interval između 2 i 10, a za kvadratnu matricu broj (m)
+ograničiti na interval između 1 i 5. Unos se mora ponavljati sve dok nije unesen broj u
+traženom intervalu.
+Koristiti try-catch blokove za zaštitu od grešaka kao što je npr. unos znaka na mjesto
+unošenja dimenzija vektora i matrice.
+*/
+
+/**
+ *
+ * @author Student
+ */
+public class Zadatak1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        double rezultat = 0;
+        double a = 0;
+        double b = 0;
+        int m = 0;
+        int n = 0;
+        
+        do {
+            System.out.println("Unesi maksimalan broj elemenata vektora V:");
+            try {
+               n = input.nextInt();
+            } catch (Exception greska1) {
+                System.out.println("Unesena vrijendost nije integer!");
+                input.nextLine();
+            }
+        } while(n < 2 || n > 10);
+        
+        double[] vektor = new double [n];
+        
+        for (int i = 0; i < n; i++) {
+                System.out.println("Unesi element " + (i+1) + " vektora: ");
+                vektor[i] = input.nextDouble();
+            }
+        
+        do {
+            System.out.println("Unesi dimenzije kvadratne matrice:");
+            try {
+                m = input.nextInt();
+            } catch (Exception greska2) {
+                System.out.println("Unesena vrijendost nije integer!");
+                input.nextLine();
+            }
+        } while(m < 1 || m > 5);
+        
+        double[][] matrica = new double [m][m];
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.println("Unesi element matrice " + (i+1) + "x" + (j+1));
+                matrica[i][j] = input.nextDouble();
+            }
+        }
+        
+        while (1 == 1) {
+            int izbor = 0;
+            System.out.println("IZBORNIK:");
+            System.out.println("1 - Izracunaj aritmeticku sredinu dijagonale.");
+            System.out.println("2 - Izracunaj sumu neparnih elemenata prvog retka i prvog stupca matrice.");
+            System.out.println("3 - Ispisi sve brojeve na parnim indeksima vektora V.");
+            System.out.println("4 - izlaz iz programa.");
+            System.out.println("UNOS: ");
+            izbor = input.nextInt();
+        if(izbor < 1 || izbor > 4) {
+            System.out.println("Neispravan unos! Pokusajte ponovo!");
+        }
+        switch(izbor) {
+            case 1:
+                for(int i = 0; i < m; i++) {
+                    rezultat = matrica[i][i];
+                }
+                rezultat = rezultat / m;
+                System.out.println("Rezultat: " + rezultat);
+                break;
+            case 2:
+                for(int i = 0; i < m; i++) {
+                    a = a + matrica[0][i];
+                    b = b + matrica[i][0];
+                }
+                rezultat = a + b;
+                System.out.println("Rezultat: " + rezultat);
+                break;
+            case 3:
+                for (int i = 0; i < n; i++) {
+                    if(i % 2 == 0 && i != 0) {
+                        System.out.println("Na indeksu [" + i + "] : " + vektor[i]);
+                    }
+                }
+                break;
+            case 4:
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+        }
+    }
+}
